@@ -4,6 +4,7 @@ import 'package:elora_school/widgets/elora_components.dart';
 
 import 'package:elora_school/theme/colors.dart';
 import 'package:elora_school/services/payment_service.dart';
+import 'package:elora_school/services/notification_data_service.dart';
 
 // Warna aksen untuk elemen yang paling penting (badge dan indikator progres).
 const Color _accent = Color(0xFFF2B84B);
@@ -141,7 +142,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Ubah Status Pembayaran'),
+        title: Text('Ubah Status Pembayaran'),
         content: Text(
           'Ubah tagihan ${payment['nama'] ?? 'siswa'} '
           'periode ${payment['period'] ?? '-'} menjadi '
@@ -150,11 +151,11 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Batal'),
+            child: Text('Batal'),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Ya, Ubah'),
+            child: Text('Ya, Ubah'),
           ),
         ],
       ),
@@ -170,10 +171,26 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
       await _fetchPayments();
       await _fetchChain();
       if (!mounted) return;
+      var notificationStatus = '';
+      try {
+        await NotificationDataService.instance.send(
+          title: 'Status pembayaran diperbarui',
+          body:
+              'Tagihan ${payment['bill_type'] ?? 'SPP'} periode '
+              '${payment['period'] ?? '-'} kini berstatus '
+              '${newStatus == 'paid' ? 'lunas' : 'belum lunas'}.',
+          target: payment['user_id'].toString(),
+          type: 'payment',
+        );
+      } catch (notificationError) {
+        debugPrint('PAYMENT NOTIFICATION ERROR: $notificationError');
+        notificationStatus =
+            ' Status tersimpan, tetapi push notification gagal dikirim.';
+      }
       _showSnack(
         newStatus == 'paid'
-            ? 'Tagihan berhasil ditandai lunas.'
-            : 'Status tagihan dikembalikan menjadi belum lunas.',
+            ? 'Tagihan berhasil ditandai lunas.$notificationStatus'
+            : 'Status tagihan diubah menjadi belum lunas.$notificationStatus',
       );
     } catch (e) {
       if (!mounted) return;
@@ -242,7 +259,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Generate Tagihan SPP'),
+        title: Text('Generate Tagihan SPP'),
         content: Text(
           'Generate tagihan SPP ${_monthName(_genMonth)} $_genYear\n'
           'Nominal: ${_formatRupiah(_sppAmount)}\n'
@@ -252,11 +269,11 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Batal'),
+            child: Text('Batal'),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Generate'),
+            child: Text('Generate'),
           ),
         ],
       ),
@@ -384,7 +401,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
           elevation: 0,
           scrolledUnderElevation: 0,
           foregroundColor: Colors.white,
-          title: const Text(
+          title: Text(
             'Administrasi Pembayaran',
             style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
           ),
@@ -402,7 +419,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                   backgroundColor: Colors.white.withValues(alpha: 0.10),
                   foregroundColor: Colors.white,
                 ),
-                icon: const Icon(Icons.refresh_rounded),
+                icon: Icon(Icons.refresh_rounded),
               ),
             ),
           ],
@@ -428,18 +445,21 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                 dividerColor: Colors.transparent,
                 labelColor: _deepGreen,
                 unselectedLabelColor: Colors.white.withValues(alpha: 0.70),
-                labelStyle: const TextStyle(
+                labelStyle: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w800,
                 ),
-                unselectedLabelStyle: const TextStyle(
+                unselectedLabelStyle: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
                 splashBorderRadius: BorderRadius.circular(14),
                 overlayColor: WidgetStateProperty.all(Colors.transparent),
                 tabs: const [
-                  _SegmentTab(icon: Icons.receipt_long_outlined, label: 'Tagihan'),
+                  _SegmentTab(
+                    icon: Icons.receipt_long_outlined,
+                    label: 'Tagihan',
+                  ),
                   _SegmentTab(icon: Icons.add_card_outlined, label: 'Generate'),
                   _SegmentTab(icon: Icons.link_rounded, label: 'Chain Log'),
                 ],
@@ -451,7 +471,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
               child: Container(
                 width: double.infinity,
                 clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: eloraBackground,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
                 ),
@@ -517,7 +537,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                 const SizedBox(height: 10),
                 Text(
                   _formatRupiah(_unpaidTotal),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.w800,
@@ -547,7 +567,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                     ),
                     Text(
                       '${(progress * 100).round()}%',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
                         fontWeight: FontWeight.w800,
@@ -578,7 +598,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                 showCheckmark: false,
                 onSelected: (_) => setState(() => _statusFilter = f),
                 selectedColor: eloraPrimary,
-                backgroundColor: Colors.white,
+                backgroundColor: eloraCard,
                 side: BorderSide(color: selected ? eloraPrimary : _fieldBorder),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
@@ -594,7 +614,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
           const SizedBox(height: 22),
 
           if (_isLoadingPayments)
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(40),
               child: Center(
                 child: CircularProgressIndicator(color: eloraPrimary),
@@ -654,7 +674,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
             backgroundColor: eloraPrimary.withValues(alpha: 0.10),
             child: Text(
               initial,
-              style: const TextStyle(
+              style: TextStyle(
                 color: eloraPrimary,
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
@@ -663,7 +683,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
           ),
           title: Text(
             nama,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 15,
               color: eloraDark,
@@ -698,7 +718,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                   const SizedBox(height: 8),
                   Text(
                     'Tunggakan: ${_formatRupiah(outstanding)}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: eloraPrimary,
                       fontWeight: FontWeight.w800,
                       fontSize: 13,
@@ -747,7 +767,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                   children: [
                     Text(
                       period.isEmpty ? 'Periode tidak tersedia' : period,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 14,
                         color: eloraDark,
@@ -790,8 +810,8 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                     onPressed: _isUpdating
                         ? null
                         : () => _updatePaymentStatus(bill),
-                    icon: const Icon(Icons.undo_rounded, size: 18),
-                    label: const Text('Batalkan Lunas'),
+                    icon: Icon(Icons.undo_rounded, size: 18),
+                    label: Text('Batalkan Lunas'),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: eloraPrimary,
                       minimumSize: const Size.fromHeight(44),
@@ -805,11 +825,8 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                     onPressed: _isUpdating
                         ? null
                         : () => _updatePaymentStatus(bill),
-                    icon: const Icon(
-                      Icons.check_circle_outline_rounded,
-                      size: 18,
-                    ),
-                    label: const Text('Tandai Lunas'),
+                    icon: Icon(Icons.check_circle_outline_rounded, size: 18),
+                    label: Text('Tandai Lunas'),
                     style: FilledButton.styleFrom(
                       backgroundColor: eloraPrimary,
                       foregroundColor: Colors.white,
@@ -840,7 +857,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
         _Panel(
           padding: const EdgeInsets.all(16),
           child: _isLoadingConfig
-              ? const Padding(
+              ? Padding(
                   padding: EdgeInsets.all(20),
                   child: Center(
                     child: CircularProgressIndicator(color: eloraPrimary),
@@ -883,8 +900,8 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                                   color: eloraPrimary,
                                 ),
                               )
-                            : const Icon(Icons.save_outlined, size: 18),
-                        label: const Text('Simpan Konfigurasi'),
+                            : Icon(Icons.save_outlined, size: 18),
+                        label: Text('Simpan Konfigurasi'),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: eloraPrimary,
                           minimumSize: const Size.fromHeight(46),
@@ -985,7 +1002,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                             color: Colors.white,
                           ),
                         )
-                      : const Icon(Icons.bolt_rounded),
+                      : Icon(Icons.bolt_rounded),
                   label: Text(
                     _isGenerating
                         ? 'Sedang generate...'
@@ -995,7 +1012,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                     backgroundColor: eloraPrimary,
                     foregroundColor: Colors.white,
                     minimumSize: const Size.fromHeight(50),
-                    textStyle: const TextStyle(
+                    textStyle: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 14,
                     ),
@@ -1053,7 +1070,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                         color: Colors.white.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.link_rounded,
                         color: Colors.white,
                         size: 24,
@@ -1064,7 +1081,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Blockchain SPP',
                             style: TextStyle(
                               color: Colors.white,
@@ -1103,7 +1120,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                       Expanded(
                         child: Text(
                           statusText,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontSize: 12.5,
@@ -1119,7 +1136,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
           const SizedBox(height: 22),
 
           if (_isLoadingChain)
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(40),
               child: Center(
                 child: CircularProgressIndicator(color: eloraPrimary),
@@ -1151,13 +1168,13 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
+                Icon(
                   Icons.info_outline_rounded,
                   size: 13,
                   color: Colors.black45,
                 ),
                 const SizedBox(width: 6),
-                const Expanded(
+                Expanded(
                   child: Text(
                     'Hash SHA-256 digunakan untuk mendeteksi perubahan data, '
                     'bukan sebagai bukti pembayaran resmi.',
@@ -1235,7 +1252,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                       ),
                       child: Text(
                         '#${b['block_index'] ?? '-'}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: eloraPrimary,
                           fontWeight: FontWeight.w800,
                           fontSize: 12,
@@ -1246,7 +1263,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                     Expanded(
                       child: Text(
                         b['period']?.toString() ?? '-',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 14,
                           color: eloraDark,
@@ -1269,7 +1286,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                       _labelStatus(oldStatus),
                       oldStatus == 'paid' ? Colors.green : Colors.orange,
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(horizontal: 6),
                       child: Icon(
                         Icons.arrow_forward_rounded,
@@ -1286,7 +1303,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                 const SizedBox(height: 10),
                 Text(
                   '${b['nama'] ?? '-'} (${b['student_id'] ?? '-'})',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 13,
                     color: eloraDark,
@@ -1315,7 +1332,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                     Expanded(
                       child: Text(
                         blockHash.isEmpty ? 'Hash: -' : 'Hash: $shortHash...',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 10.5,
                           color: Colors.black45,
                           fontFamily: 'monospace',
@@ -1337,7 +1354,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
                       constraints: const BoxConstraints(),
                       iconSize: 16,
                       color: Colors.black45,
-                      icon: const Icon(Icons.copy_rounded),
+                      icon: Icon(Icons.copy_rounded),
                     ),
                   ],
                 ),
@@ -1372,11 +1389,11 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+        Text(label, style: TextStyle(color: Colors.grey, fontSize: 12)),
         const SizedBox(height: 3),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 13,
             color: eloraDark,
@@ -1405,7 +1422,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
             value,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               color: eloraPrimary,
               fontWeight: FontWeight.w800,
               fontSize: 13,
@@ -1447,7 +1464,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
           value: value,
           isExpanded: true,
           borderRadius: BorderRadius.circular(12),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 13,
             color: eloraDark,
             fontWeight: FontWeight.w600,
@@ -1475,7 +1492,7 @@ class _AdminPaymentPageState extends State<AdminPaymentPage>
       hintText: hint,
       hintStyle: TextStyle(fontSize: 12, color: Colors.grey.shade500),
       prefixText: prefix,
-      prefixStyle: const TextStyle(
+      prefixStyle: TextStyle(
         color: eloraDark,
         fontWeight: FontWeight.w700,
         fontSize: 14,

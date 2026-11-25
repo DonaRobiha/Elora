@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:elora_school/theme/colors.dart';
 
-final ValueNotifier<ThemeMode> eloraThemeMode = ValueNotifier(ThemeMode.light);
-final ValueNotifier<double> eloraTextScale = ValueNotifier(1.0);
-
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
   @override
@@ -46,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     appBar: AppBar(
-      title: const Text('Personalisasi ELORA'),
+      title: Text('Personalisasi ELORA'),
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).colorScheme.onSurface,
       elevation: 0,
@@ -60,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
             color: eloraPrimary,
             borderRadius: BorderRadius.circular(22),
           ),
-          child: const Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 28),
@@ -90,7 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
               dark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
               color: eloraPrimary,
             ),
-            title: const Text(
+            title: Text(
               'Mode gelap',
               style: TextStyle(fontWeight: FontWeight.w800),
             ),
@@ -107,7 +104,7 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   children: [
                     Icon(Icons.format_size_rounded, color: eloraPrimary),
                     SizedBox(width: 10),

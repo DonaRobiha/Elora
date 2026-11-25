@@ -23,7 +23,7 @@ class EloraSectionHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             color: eloraDark,
             fontSize: 17,
             fontWeight: FontWeight.w700,
@@ -46,7 +46,10 @@ class EloraSectionHeader extends StatelessWidget {
     if (trailing == null) return heading;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [Expanded(child: heading), trailing!],
+      children: [
+        Expanded(child: heading),
+        trailing!,
+      ],
     );
   }
 }

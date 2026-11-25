@@ -515,7 +515,7 @@ class _ExplorePageState extends State<ExplorePage> {
           ),
         ],
       ),
-      child: const CircleAvatar(
+      child: CircleAvatar(
         backgroundColor: eloraPrimary,
         child: Icon(Icons.school_rounded, color: Colors.white, size: 23),
       ),
@@ -536,7 +536,7 @@ class _ExplorePageState extends State<ExplorePage> {
           ),
         ],
       ),
-      child: const CircleAvatar(
+      child: CircleAvatar(
         backgroundColor: eloraPrimary,
         child: Icon(Icons.navigation_rounded, color: Colors.white, size: 25),
       ),
@@ -572,14 +572,14 @@ class _ExplorePageState extends State<ExplorePage> {
                   color: eloraPrimary.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(13),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.explore_rounded,
                   color: eloraPrimary,
                   size: 23,
                 ),
               ),
               const SizedBox(width: 11),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -602,7 +602,7 @@ class _ExplorePageState extends State<ExplorePage> {
               IconButton(
                 tooltip: 'Muat ulang',
                 onPressed: loadInstitutions,
-                icon: const Icon(Icons.refresh_rounded, color: eloraPrimary),
+                icon: Icon(Icons.refresh_rounded, color: eloraPrimary),
               ),
             ],
           ),
@@ -663,7 +663,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 _searchController.clear();
                 setState(() => _searchQuery = '');
               },
-              icon: const Icon(Icons.close_rounded),
+              icon: Icon(Icons.close_rounded),
             ),
     );
   }
@@ -678,7 +678,7 @@ class _ExplorePageState extends State<ExplorePage> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: eloraCard,
         borderRadius: BorderRadius.circular(13),
         boxShadow: [
           BoxShadow(
@@ -698,7 +698,7 @@ class _ExplorePageState extends State<ExplorePage> {
           Expanded(
             child: Text(
               _locationMessage!,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
                 color: eloraDark,
@@ -709,7 +709,7 @@ class _ExplorePageState extends State<ExplorePage> {
             onPressed: () {
               setState(() => _locationMessage = null);
             },
-            icon: const Icon(Icons.close_rounded, size: 17),
+            icon: Icon(Icons.close_rounded, size: 17),
             constraints: const BoxConstraints(),
             padding: EdgeInsets.zero,
           ),
@@ -786,8 +786,8 @@ class _ExplorePageState extends State<ExplorePage> {
       maxChildSize: 0.72,
       builder: (context, scrollController) {
         return Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
+          decoration: BoxDecoration(
+            color: eloraCard,
             borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
           ),
           clipBehavior: Clip.antiAlias,
@@ -819,7 +819,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 ],
 
                 if (isLoadingInstitutions)
-                  const Center(
+                  Center(
                     child: Padding(
                       padding: EdgeInsets.all(30),
                       child: CircularProgressIndicator(color: eloraPrimary),
@@ -828,7 +828,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 else if (filtered.isEmpty)
                   _buildEmptyState()
                 else ...[
-                  const Text(
+                  Text(
                     'Daftar Institusi',
                     style: TextStyle(
                       fontSize: 14,
@@ -850,7 +850,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget _buildSheetHeader(int count) {
     return Row(
       children: [
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -878,15 +878,11 @@ class _ExplorePageState extends State<ExplorePage> {
           ),
           child: Row(
             children: [
-              const Icon(
-                Icons.location_on_rounded,
-                color: eloraPrimary,
-                size: 15,
-              ),
+              Icon(Icons.location_on_rounded, color: eloraPrimary, size: 15),
               const SizedBox(width: 5),
               Text(
                 '$count lokasi',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 11,
                   color: eloraPrimary,
                   fontWeight: FontWeight.w700,
@@ -917,17 +913,17 @@ class _ExplorePageState extends State<ExplorePage> {
             width: 43,
             height: 43,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: eloraCard,
               borderRadius: BorderRadius.circular(13),
             ),
-            child: const Icon(Icons.near_me_rounded, color: eloraPrimary),
+            child: Icon(Icons.near_me_rounded, color: eloraPrimary),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Institusi Terdekat',
                   style: TextStyle(
                     color: eloraPrimary,
@@ -938,7 +934,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 const SizedBox(height: 4),
                 Text(
                   (institution['name'] ?? 'Institusi').toString(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: eloraDark,
                     fontSize: 13,
                     fontWeight: FontWeight.w800,
@@ -955,7 +951,7 @@ class _ExplorePageState extends State<ExplorePage> {
           IconButton(
             tooltip: 'Lihat di peta',
             onPressed: () => _focusInstitution(institution),
-            icon: const Icon(Icons.map_outlined, color: eloraPrimary),
+            icon: Icon(Icons.map_outlined, color: eloraPrimary),
           ),
         ],
       ),
@@ -981,11 +977,7 @@ class _ExplorePageState extends State<ExplorePage> {
               color: eloraPrimary.withValues(alpha: 0.09),
               borderRadius: BorderRadius.circular(13),
             ),
-            child: const Icon(
-              Icons.school_outlined,
-              color: eloraPrimary,
-              size: 24,
-            ),
+            child: Icon(Icons.school_outlined, color: eloraPrimary, size: 24),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -994,7 +986,7 @@ class _ExplorePageState extends State<ExplorePage> {
               children: [
                 Text(
                   (institution['name'] ?? 'Institusi').toString(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w700,
                     color: eloraDark,
                     fontSize: 13,
@@ -1008,7 +1000,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.location_on_outlined,
                       color: eloraPrimary,
                       size: 14,
@@ -1029,7 +1021,7 @@ class _ExplorePageState extends State<ExplorePage> {
                   const SizedBox(height: 5),
                   Text(
                     _formatDistance(_distanceInMeters(institution)),
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: eloraPrimary,
                       fontSize: 10,
                       fontWeight: FontWeight.w600,
@@ -1042,9 +1034,9 @@ class _ExplorePageState extends State<ExplorePage> {
           IconButton(
             tooltip: 'Tampilkan di peta',
             onPressed: () => _focusInstitution(institution),
-            icon: const Icon(Icons.near_me_outlined, color: eloraPrimary),
+            icon: Icon(Icons.near_me_outlined, color: eloraPrimary),
           ),
-          const Icon(Icons.chevron_right_rounded, color: Colors.grey),
+          Icon(Icons.chevron_right_rounded, color: Colors.grey),
         ],
       ),
     );
@@ -1077,7 +1069,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 ? 'Institusi tidak dapat dimuat'
                 : 'Institusi tidak ditemukan',
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: eloraDark,
@@ -1094,8 +1086,8 @@ class _ExplorePageState extends State<ExplorePage> {
           const SizedBox(height: 15),
           OutlinedButton.icon(
             onPressed: loadInstitutions,
-            icon: const Icon(Icons.refresh_rounded),
-            label: const Text('Coba Lagi'),
+            icon: Icon(Icons.refresh_rounded),
+            label: Text('Coba Lagi'),
             style: OutlinedButton.styleFrom(foregroundColor: eloraPrimary),
           ),
         ],

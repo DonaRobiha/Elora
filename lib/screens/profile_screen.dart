@@ -135,14 +135,10 @@ class _ProfilePageState extends State<ProfilePage> {
             color: Colors.white.withValues(alpha: .14),
             shape: BoxShape.circle,
           ),
-          child: const Icon(
-            Icons.school_rounded,
-            color: Colors.white,
-            size: 17,
-          ),
+          child: Icon(Icons.school_rounded, color: Colors.white, size: 17),
         ),
         const SizedBox(width: 9),
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -169,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
         IconButton(
           tooltip: 'Notifikasi',
           onPressed: () => _open(const NotificationPage()),
-          icon: const Icon(
+          icon: Icon(
             Icons.notifications_none_rounded,
             color: Colors.white,
             size: 19,
@@ -182,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     if (loading) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: eloraBackground,
         body: Center(child: CircularProgressIndicator(color: eloraPrimary)),
       );
@@ -252,7 +248,7 @@ class _ProfilePageState extends State<ProfilePage> {
       children: [
         Row(
           children: [
-            const Expanded(
+            Expanded(
               child: Text(
                 'KARTU PELAJAR DIGITAL',
                 style: TextStyle(
@@ -269,7 +265,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 color: Colors.white.withValues(alpha: .16),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
+              child: Text(
                 'ELORA PASS',
                 style: TextStyle(
                   color: Colors.white,
@@ -294,7 +290,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ? NetworkImage(photo!)
                         : null,
                     child: photo == null
-                        ? const Icon(
+                        ? Icon(
                             Icons.person_rounded,
                             color: Colors.white,
                             size: 30,
@@ -311,7 +307,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.white,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.camera_alt_rounded,
                         color: eloraPrimary,
                         size: 11,
@@ -330,7 +326,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     v('nama', 'Siswa ELORA'),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w900,
@@ -339,14 +335,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 3),
                   Text(
                     'NISN ${v('student_id', '-')}',
-                    style: const TextStyle(color: Colors.white70, fontSize: 8),
+                    style: TextStyle(color: Colors.white70, fontSize: 8),
                   ),
                   const SizedBox(height: 3),
                   Text(
                     v('institution', 'SMP ELORA Bantul'),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(color: Colors.white70, fontSize: 8),
+                    style: TextStyle(color: Colors.white70, fontSize: 8),
                   ),
                 ],
               ),
@@ -360,14 +356,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     color: Colors.white.withValues(alpha: .13),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.qr_code_2_rounded,
                     color: Colors.white,
                     size: 22,
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'KARTU SISWA',
                   style: TextStyle(
                     color: Colors.white70,
@@ -382,13 +378,13 @@ class _ProfilePageState extends State<ProfilePage> {
         const SizedBox(height: 12),
         Row(
           children: [
-            const Icon(
+            Icon(
               Icons.verified_user_rounded,
               color: Color(0xFF9AF1D5),
               size: 13,
             ),
             const SizedBox(width: 5),
-            const Expanded(
+            Expanded(
               child: Text(
                 'Kartu pelajar aktif',
                 style: TextStyle(color: Colors.white70, fontSize: 8),
@@ -399,12 +395,12 @@ class _ProfilePageState extends State<ProfilePage> {
               child: FilledButton.icon(
                 onPressed: () => _open(const AttendanceScanPage()),
                 style: FilledButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: eloraCard,
                   foregroundColor: eloraPrimary,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                 ),
-                icon: const Icon(Icons.qr_code_scanner_rounded, size: 13),
-                label: const Text(
+                icon: Icon(Icons.qr_code_scanner_rounded, size: 13),
+                label: Text(
                   'Presensi',
                   style: TextStyle(fontSize: 8, fontWeight: FontWeight.w900),
                 ),
@@ -432,7 +428,7 @@ class _ProfilePageState extends State<ProfilePage> {
             color: eloraPrimary.withValues(alpha: .1),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.receipt_long_rounded,
             color: eloraPrimary,
             size: 19,
@@ -468,7 +464,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         Text(
           paymentError == null ? _rupiah(sppOutstanding) : '—',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w900,
             color: eloraPrimary,
@@ -478,7 +474,7 @@ class _ProfilePageState extends State<ProfilePage> {
         IconButton(
           tooltip: 'Rincian pembayaran',
           onPressed: () => _open(const PaymentPage()),
-          icon: const Icon(
+          icon: Icon(
             Icons.chevron_right_rounded,
             color: eloraPrimary,
             size: 19,
@@ -552,7 +548,7 @@ class _ProfilePageState extends State<ProfilePage> {
           sub,
           style: TextStyle(fontSize: 8, color: Colors.grey.shade500),
         ),
-        trailing: const Icon(
+        trailing: Icon(
           Icons.chevron_right_rounded,
           size: 18,
           color: Colors.black38,
@@ -564,8 +560,8 @@ class _ProfilePageState extends State<ProfilePage> {
     width: double.infinity,
     child: OutlinedButton.icon(
       onPressed: () => _logoutDialog(),
-      icon: const Icon(Icons.logout_rounded, size: 17),
-      label: const Text(
+      icon: Icon(Icons.logout_rounded, size: 17),
+      label: Text(
         'Keluar dari Akun',
         style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800),
       ),
@@ -588,7 +584,7 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Data Akademik',
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900),
             ),
@@ -615,11 +611,7 @@ class _ProfilePageState extends State<ProfilePage> {
         color: const Color(0xFFE5F3F1),
         borderRadius: BorderRadius.circular(11),
       ),
-      child: const Icon(
-        Icons.fingerprint_rounded,
-        color: eloraPrimary,
-        size: 21,
-      ),
+      child: Icon(Icons.fingerprint_rounded, color: eloraPrimary, size: 21),
     ),
     title: Text(
       'Kunci Biometrik',
@@ -661,7 +653,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void _personalDialog() => showModalBottomSheet(
     context: context,
     showDragHandle: true,
-    backgroundColor: Colors.white,
+    backgroundColor: eloraCard,
     builder: (_) => SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 28),
@@ -669,7 +661,7 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Data Pribadi',
               style: TextStyle(
                 fontSize: 19,
@@ -704,7 +696,7 @@ class _ProfilePageState extends State<ProfilePage> {
         Expanded(
           child: Text(
             b,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w700,
               color: eloraDark,
@@ -715,131 +707,24 @@ class _ProfilePageState extends State<ProfilePage> {
     ),
   );
 
-  void _waliForm() {
-    final nama = TextEditingController(text: wali?['nama'] ?? '');
-    final hp = TextEditingController(text: wali?['hp'] ?? '');
-    final hubungan = TextEditingController(text: wali?['hubungan'] ?? '');
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      showDragHandle: true,
-      backgroundColor: Colors.white,
-      builder: (ctx) => Padding(
-        padding: EdgeInsets.fromLTRB(
-          20,
-          8,
-          20,
-          MediaQuery.of(ctx).viewInsets.bottom + 25,
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Wali Murid',
-                style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w900,
-                  color: eloraDark,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                wali == null
-                    ? 'Isi data wali murid terlebih dahulu.'
-                    : 'Perbarui data wali murid.',
-                style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
-              ),
-              const SizedBox(height: 18),
-              TextField(
-                controller: nama,
-                decoration: const InputDecoration(labelText: 'Nama wali'),
-              ),
-              const SizedBox(height: 11),
-              TextField(
-                controller: hp,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(labelText: 'Nomor HP'),
-              ),
-              const SizedBox(height: 11),
-              TextField(
-                controller: hubungan,
-                decoration: const InputDecoration(labelText: 'Hubungan'),
-              ),
-              const SizedBox(height: 18),
-              SizedBox(
-                width: double.infinity,
-                height: 46,
-                child: FilledButton(
-                  onPressed: () async {
-                    if (nama.text.trim().isEmpty || hp.text.trim().isEmpty) {
-                      ScaffoldMessenger.of(ctx).showSnackBar(
-                        const SnackBar(
-                          content: Text('Nama dan nomor HP wajib diisi.'),
-                        ),
-                      );
-                      return;
-                    }
-                    final saved = {
-                      'nama': nama.text.trim(),
-                      'hp': hp.text.trim(),
-                      'hubungan': hubungan.text.trim().isEmpty
-                          ? 'Wali Murid'
-                          : hubungan.text.trim(),
-                    };
-                    try {
-                      final preferences = await SharedPreferences.getInstance();
-                      await preferences.setString('wali_nama', saved['nama']!);
-                      await preferences.setString('wali_hp', saved['hp']!);
-                      await preferences.setString(
-                        'wali_hubungan',
-                        saved['hubungan']!,
-                      );
-                    } catch (e) {
-                      if (ctx.mounted) {
-                        ScaffoldMessenger.of(ctx).showSnackBar(
-                          SnackBar(
-                            content: Text('Data wali gagal disimpan: $e'),
-                          ),
-                        );
-                      }
-                      return;
-                    }
-                    setState(() => wali = saved);
-                    if (!ctx.mounted) return;
-                    Navigator.pop(ctx);
-                  },
-                  child: const Text('Simpan Data Wali'),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   void _photoSource() => showModalBottomSheet(
     context: context,
-    backgroundColor: Colors.white,
+    backgroundColor: eloraCard,
     builder: (ctx) => SafeArea(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            leading: const Icon(Icons.camera_alt_rounded, color: eloraPrimary),
-            title: const Text('Ambil Foto'),
+            leading: Icon(Icons.camera_alt_rounded, color: eloraPrimary),
+            title: Text('Ambil Foto'),
             onTap: () {
               Navigator.pop(ctx);
               _pick(ImageSource.camera);
             },
           ),
           ListTile(
-            leading: const Icon(
-              Icons.photo_library_rounded,
-              color: eloraPrimary,
-            ),
-            title: const Text('Pilih dari Galeri'),
+            leading: Icon(Icons.photo_library_rounded, color: eloraPrimary),
+            title: Text('Pilih dari Galeri'),
             onTap: () {
               Navigator.pop(ctx);
               _pick(ImageSource.gallery);
@@ -876,13 +761,10 @@ class _ProfilePageState extends State<ProfilePage> {
   void _logoutDialog() => showDialog(
     context: context,
     builder: (ctx) => AlertDialog(
-      title: const Text('Keluar dari akun?'),
-      content: const Text('Sesi akan diakhiri pada perangkat ini.'),
+      title: Text('Keluar dari akun?'),
+      content: Text('Sesi akan diakhiri pada perangkat ini.'),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(ctx),
-          child: const Text('Batal'),
-        ),
+        TextButton(onPressed: () => Navigator.pop(ctx), child: Text('Batal')),
         TextButton(
           onPressed: () async {
             Navigator.pop(ctx);
@@ -893,7 +775,7 @@ class _ProfilePageState extends State<ProfilePage> {
               (_) => false,
             );
           },
-          child: const Text('Keluar', style: TextStyle(color: Colors.red)),
+          child: Text('Keluar', style: TextStyle(color: Colors.red)),
         ),
       ],
     ),

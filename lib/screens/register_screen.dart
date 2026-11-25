@@ -98,7 +98,12 @@ class _RegisterPageState extends State<RegisterPage> {
       );
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registrasi berhasil! Silakan login dengan NIS dan password kamu.'), backgroundColor: eloraPrimary),
+        const SnackBar(
+          content: Text(
+            'Registrasi berhasil! Silakan login dengan NIS dan password kamu.',
+          ),
+          backgroundColor: eloraPrimary,
+        ),
       );
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (_) => const LoginPage()),
@@ -136,11 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ? null
                       : () => Navigator.pop(context),
                   padding: const EdgeInsets.only(left: 20),
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 28,
-                  ),
+                  icon: Icon(Icons.arrow_back, color: Colors.white, size: 28),
                 ),
               ),
             ),
@@ -167,8 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
-            const Center(
+            Center(
               child: Column(
                 children: [
                   Text(
@@ -265,7 +265,7 @@ class _RegisterPageState extends State<RegisterPage> {
           color: eloraInput,
           borderRadius: BorderRadius.circular(11),
         ),
-        child: const Row(
+        child: Row(
           children: [
             SizedBox(
               width: 16,
@@ -323,12 +323,12 @@ class _RegisterPageState extends State<RegisterPage> {
         child: DropdownButton<int>(
           value: _selectedInstitutionId,
           isExpanded: true,
-          hint: const Text(
+          hint: Text(
             'Pilih institusi',
             style: TextStyle(fontSize: 11, color: Colors.grey),
           ),
-          icon: const Icon(Icons.keyboard_arrow_down_rounded, color: eloraDark),
-          style: const TextStyle(fontSize: 12, color: eloraDark),
+          icon: Icon(Icons.keyboard_arrow_down_rounded, color: eloraDark),
+          style: TextStyle(fontSize: 12, color: eloraDark),
           items: _institutions.map((inst) {
             return DropdownMenuItem<int>(
               value: inst['id'] as int,
@@ -372,7 +372,7 @@ class _RegisterPageState extends State<RegisterPage> {
         keyboardType: keyboardType,
         obscureText: obscureText,
         enabled: !_isSubmitting,
-        style: const TextStyle(fontSize: 12, color: eloraDark),
+        style: TextStyle(fontSize: 12, color: eloraDark),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(fontSize: 11, color: Colors.grey.shade600),

@@ -47,10 +47,11 @@ class NotificationDataService {
     required String title,
     required String body,
     String target = 'all',
+    String type = 'general',
   }) async {
     final response = await SupabaseService.client.functions.invoke(
       'send-notification',
-      body: {'title': title, 'body': body, 'target': target},
+      body: {'title': title, 'body': body, 'target': target, 'type': type},
     );
     if (response.status < 200 || response.status >= 300) {
       throw Exception('Pengiriman notifikasi gagal (${response.status}).');

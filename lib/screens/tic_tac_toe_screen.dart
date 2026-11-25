@@ -366,10 +366,10 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
         children: [
           IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            icon: Icon(Icons.arrow_back_ios_new_rounded),
             color: const Color(0xFF173E3A),
           ),
-          const Expanded(
+          Expanded(
             child: Text(
               'Mini Games',
               style: TextStyle(
@@ -386,7 +386,7 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
               color: Colors.white.withValues(alpha: 0.30),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.sports_esports_rounded,
               color: Color(0xFF17665F),
               size: 21,
@@ -604,7 +604,7 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
 
           Text(
             '$score',
-            style: const TextStyle(
+            style: TextStyle(
               color: eloraDark,
               fontSize: 21,
               fontWeight: FontWeight.w900,
@@ -715,7 +715,7 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
           ),
 
           if (isGameOver)
-            const Icon(
+            Icon(
               Icons.emoji_events_rounded,
               color: Color(0xFFFFB52E),
               size: 27,
@@ -829,8 +829,8 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
             height: 51,
             child: FilledButton.icon(
               onPressed: _resetRound,
-              icon: const Icon(Icons.refresh_rounded),
-              label: const Text(
+              icon: Icon(Icons.refresh_rounded),
+              label: Text(
                 'Putaran Baru',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
               ),
@@ -859,7 +859,7 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 15),
             ),
-            child: const Icon(Icons.restart_alt_rounded),
+            child: Icon(Icons.restart_alt_rounded),
           ),
         ),
       ],
@@ -871,8 +871,8 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
-          title: const Text('Atur ulang skor?'),
-          content: const Text(
+          title: Text('Atur ulang skor?'),
+          content: Text(
             'Semua skor pertandingan akan dihapus. '
             'Apakah kamu ingin melanjutkan?',
           ),
@@ -881,13 +881,13 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
               onPressed: () {
                 Navigator.pop(dialogContext, false);
               },
-              child: const Text('Batal'),
+              child: Text('Batal'),
             ),
             FilledButton(
               onPressed: () {
                 Navigator.pop(dialogContext, true);
               },
-              child: const Text('Reset'),
+              child: Text('Reset'),
             ),
           ],
         );
@@ -911,7 +911,7 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
               Icon(
                 Icons.lightbulb_outline_rounded,
@@ -972,7 +972,7 @@ class _TicTacToeScreenState extends State<TicTacToeScreen> {
             ),
             child: Text(
               number,
-              style: const TextStyle(
+              style: TextStyle(
                 color: eloraPrimary,
                 fontSize: 10,
                 fontWeight: FontWeight.w900,

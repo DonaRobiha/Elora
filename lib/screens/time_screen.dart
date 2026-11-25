@@ -122,7 +122,7 @@ class _TimePageState extends State<TimePage> {
                     const SizedBox(height: 4),
                     _buildTimePicker(),
                     const SizedBox(height: 20),
-                    const Row(
+                    Row(
                       children: [
                         Text(
                           'Hasil Konversi',
@@ -158,7 +158,7 @@ class _TimePageState extends State<TimePage> {
       height: 82,
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(8, 8, 18, 12),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [Color(0xFFBFE4DC), Color(0xFF86C6B8)],
           begin: Alignment.topLeft,
@@ -169,10 +169,10 @@ class _TimePageState extends State<TimePage> {
         children: [
           IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            icon: Icon(Icons.arrow_back_ios_new_rounded),
             color: const Color(0xFF173E3A),
           ),
-          const Expanded(
+          Expanded(
             child: Text(
               'Konversi Waktu',
               style: TextStyle(
@@ -189,7 +189,7 @@ class _TimePageState extends State<TimePage> {
               color: Colors.white.withValues(alpha: 0.30),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.access_time_rounded,
               color: Color(0xFF17665F),
               size: 21,
@@ -211,17 +211,17 @@ class _TimePageState extends State<TimePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Zona waktu sumber',
             style: TextStyle(fontSize: 12, color: Colors.white70),
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
             initialValue: selectedZone,
-            dropdownColor: Colors.white,
+            dropdownColor: eloraCard,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.white,
+              fillColor: eloraCard,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 12,
                 vertical: 10,
@@ -259,33 +259,25 @@ class _TimePageState extends State<TimePage> {
               ),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.schedule_rounded,
-                    color: Colors.white,
-                    size: 23,
-                  ),
+                  Icon(Icons.schedule_rounded, color: Colors.white, size: 23),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       selectedTime.format(context),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                       ),
                     ),
                   ),
-                  const Icon(
-                    Icons.edit_outlined,
-                    color: Colors.white,
-                    size: 19,
-                  ),
+                  Icon(Icons.edit_outlined, color: Colors.white, size: 19),
                 ],
               ),
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
+          Text(
             'Pilih waktu untuk mengubah jam sumber.',
             style: TextStyle(fontSize: 10, color: Colors.white70),
           ),
@@ -332,7 +324,7 @@ class _TimePageState extends State<TimePage> {
               children: [
                 Text(
                   name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
                     color: eloraDark,
@@ -348,7 +340,7 @@ class _TimePageState extends State<TimePage> {
           ),
           Text(
             convertTime(offset),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
               color: eloraPrimary,
@@ -366,7 +358,7 @@ class _TimePageState extends State<TimePage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.info_outline_rounded, color: eloraPrimary),
+          Icon(Icons.info_outline_rounded, color: eloraPrimary),
           const SizedBox(width: 10),
           Expanded(
             child: Text(

@@ -209,7 +209,7 @@ class _HomePageState extends State<HomePage> {
     margin: const EdgeInsets.fromLTRB(18, 0, 18, 14),
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: eloraCard,
       borderRadius: BorderRadius.circular(28),
       boxShadow: [
         BoxShadow(
@@ -288,18 +288,14 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white.withValues(alpha: .14),
             shape: BoxShape.circle,
           ),
-          child: const Icon(
-            Icons.school_rounded,
-            color: Colors.white,
-            size: 16,
-          ),
+          child: Icon(Icons.school_rounded, color: Colors.white, size: 16),
         ),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'ELORA CAMPUS • SISWA',
                 style: TextStyle(
                   color: Colors.white70,
@@ -308,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                   letterSpacing: 1,
                 ),
               ),
-              const Text(
+              Text(
                 'Beranda',
                 style: TextStyle(
                   color: Colors.white,
@@ -355,7 +351,7 @@ class _HomePageState extends State<HomePage> {
                         ? Container(
                             width: 6,
                             height: 6,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: Color(0xFFFF6B6B),
                               shape: BoxShape.circle,
                             ),
@@ -370,7 +366,7 @@ class _HomePageState extends State<HomePage> {
   Widget _statusCard() => Container(
     padding: const EdgeInsets.fromLTRB(14, 12, 14, 13),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: eloraCard,
       borderRadius: BorderRadius.circular(19),
       border: Border.all(color: const Color(0xFFE2EAE8)),
       boxShadow: [
@@ -394,7 +390,7 @@ class _HomePageState extends State<HomePage> {
             '${institution.toUpperCase()} • SISWA',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               color: eloraPrimary,
               fontSize: 7,
               fontWeight: FontWeight.w800,
@@ -408,7 +404,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: Text(
                 '${_greet()}, $name 👋',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w900,
                   color: eloraDark,
@@ -423,11 +419,7 @@ class _HomePageState extends State<HomePage> {
                   ? NetworkImage(avatarUrl!)
                   : null,
               child: avatarUrl == null || !avatarUrl!.startsWith('http')
-                  ? const Icon(
-                      Icons.person_rounded,
-                      color: eloraPrimary,
-                      size: 18,
-                    )
+                  ? Icon(Icons.person_rounded, color: eloraPrimary, size: 18)
                   : null,
             ),
           ],
@@ -442,7 +434,7 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(height: 13),
         Row(
           children: [
-            const Expanded(
+            Expanded(
               child: Text(
                 'Total Tagihan Berjalan',
                 style: TextStyle(
@@ -490,7 +482,7 @@ class _HomePageState extends State<HomePage> {
               : accountError == null
               ? unpaid
               : '—',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.w900,
             color: eloraDark,
@@ -542,8 +534,8 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            icon: const Icon(Icons.receipt_long_rounded, size: 15),
-            label: const Text(
+            icon: Icon(Icons.receipt_long_rounded, size: 15),
+            label: Text(
               'Lihat Rincian Pembayaran',
               style: TextStyle(fontSize: 9, fontWeight: FontWeight.w800),
             ),
@@ -627,7 +619,7 @@ class _HomePageState extends State<HomePage> {
       const SizedBox(height: 2),
       Text(
         b,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 8,
           fontWeight: FontWeight.w800,
           color: eloraDark,
@@ -638,7 +630,7 @@ class _HomePageState extends State<HomePage> {
   Widget _quick() => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const Text(
+      Text(
         'Menu Cepat',
         style: TextStyle(
           fontSize: 13,
@@ -704,7 +696,7 @@ class _HomePageState extends State<HomePage> {
           margin: const EdgeInsets.only(right: 9),
           padding: const EdgeInsets.fromLTRB(7, 9, 7, 8),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: eloraCard,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: const Color(0xFFE4ECEA)),
           ),
@@ -724,7 +716,7 @@ class _HomePageState extends State<HomePage> {
                 title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 8.5,
                   fontWeight: FontWeight.w800,
                   color: eloraDark,
@@ -739,7 +731,7 @@ class _HomePageState extends State<HomePage> {
     children: [
       Row(
         children: [
-          const Expanded(
+          Expanded(
             child: Text(
               'Aktivitas Akun & Pengumuman',
               style: TextStyle(
@@ -751,7 +743,7 @@ class _HomePageState extends State<HomePage> {
           ),
           TextButton(
             onPressed: () => open(const NotificationPage()),
-            child: const Text(
+            child: Text(
               'Semua ›',
               style: TextStyle(fontSize: 8, color: eloraPrimary),
             ),
@@ -769,7 +761,7 @@ class _HomePageState extends State<HomePage> {
           margin: const EdgeInsets.only(bottom: 8),
           padding: const EdgeInsets.all(11),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: eloraCard,
             borderRadius: BorderRadius.circular(15),
             border: Border.all(color: const Color(0xFFE7ECEB)),
           ),
@@ -799,7 +791,7 @@ class _HomePageState extends State<HomePage> {
                       n['title']?.toString() ?? 'Aktivitas akun siswa',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 9,
                         fontWeight: FontWeight.w800,
                         color: eloraDark,
@@ -832,7 +824,7 @@ class _HomePageState extends State<HomePage> {
         Container(
           padding: const EdgeInsets.all(13),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: eloraCard,
             borderRadius: BorderRadius.circular(15),
             border: Border.all(color: const Color(0xFFE7ECEB)),
           ),
@@ -840,7 +832,7 @@ class _HomePageState extends State<HomePage> {
             notificationError == null
                 ? 'Belum ada aktivitas pembayaran atau pengumuman khusus untuk akun ini.'
                 : 'Pengumuman akun gagal dimuat. Tarik layar untuk mencoba lagi.',
-            style: const TextStyle(fontSize: 9, color: Colors.grey),
+            style: TextStyle(fontSize: 9, color: Colors.grey),
           ),
         ),
     ],

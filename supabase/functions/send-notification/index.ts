@@ -76,11 +76,15 @@ Deno.serve(async (req) => {
     const title = String(body.title ?? '').trim();
     const message = String(body.body ?? '').trim();
     const target = String(body.target ?? 'all');
+    const type = String(body.type ?? 'general').trim();
     if (!title || !message) throw new Error('Judul dan isi notifikasi wajib diisi.');
     if (target !== 'all' && !/^[0-9a-f-]{36}$/i.test(target)) throw new Error('Target penerima tidak valid.');
+    if (!['general', 'payment', 'spp', 'announcement', 'academic', 'reminder'].includes(type)) {
+      throw new Error('Jenis notifikasi tidak valid.');
+    }
 
     const { data: notification, error: insertError } = await admin.from('notifications').insert({
-      title, body: message, type: 'general', target: target === 'all' ? 'all' : 'user',
+      title, body: message, type, target: target === 'all' ? 'all' : 'user',
       target_user_id: target === 'all' ? null : target, created_by: user.id,
     }).select('id').single();
     if (insertError) throw insertError;

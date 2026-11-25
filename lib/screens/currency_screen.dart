@@ -211,10 +211,10 @@ class _CurrencyPageState extends State<CurrencyPage> {
         children: [
           IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            icon: Icon(Icons.arrow_back_ios_new_rounded),
             color: const Color(0xFF173E3A),
           ),
-          const Expanded(
+          Expanded(
             child: Text(
               'Konversi Mata Uang',
               style: TextStyle(
@@ -236,9 +236,9 @@ class _CurrencyPageState extends State<CurrencyPage> {
                       color: Color(0xFF17665F),
                     ),
                   )
-                : const Icon(Icons.refresh_rounded, color: Color(0xFF17665F)),
+                : Icon(Icons.refresh_rounded, color: Color(0xFF17665F)),
           ),
-          const Icon(
+          Icon(
             Icons.currency_exchange_rounded,
             color: Color(0xFF17665F),
             size: 22,
@@ -256,7 +256,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Nominal pembayaran',
             style: TextStyle(
               fontSize: 12,
@@ -298,7 +298,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
                         preset >= 1000000
                             ? '${preset ~/ 1000000} jt'
                             : '${preset ~/ 1000} rb',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: eloraPrimary,
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
@@ -316,7 +316,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
             ),
           ),
           const SizedBox(height: 14),
-          const Text(
+          Text(
             'Dari (asal)',
             style: TextStyle(
               fontSize: 12,
@@ -337,14 +337,14 @@ class _CurrencyPageState extends State<CurrencyPage> {
           Center(
             child: IconButton(
               onPressed: swapCurrencies,
-              icon: const Icon(
+              icon: Icon(
                 Icons.swap_vert_rounded,
                 color: eloraPrimary,
                 size: 28,
               ),
             ),
           ),
-          const Text(
+          Text(
             'Ke (tujuan)',
             style: TextStyle(
               fontSize: 12,
@@ -379,14 +379,14 @@ class _CurrencyPageState extends State<CurrencyPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Hasil estimasi',
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     '$toCurrency ${formatAmount(result!)}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.w800,
                       color: eloraPrimary,
@@ -420,7 +420,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
               value: currency['code'] as String,
               child: Text(
                 '${currency['code']} - ${currency['name']}',
-                style: const TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: 12),
               ),
             );
           }).toList(),
@@ -451,7 +451,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.info_outline_rounded, color: eloraPrimary),
+          Icon(Icons.info_outline_rounded, color: eloraPrimary),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -464,7 +464,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
             ),
           ),
           if (_ratesError != null)
-            TextButton(onPressed: _fetchRates, child: const Text('Retry')),
+            TextButton(onPressed: _fetchRates, child: Text('Retry')),
         ],
       ),
     );

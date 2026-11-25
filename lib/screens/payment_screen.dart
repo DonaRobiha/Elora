@@ -28,6 +28,7 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   Future<void> _load() async {
+    final profileFuture = _loadProfile();
     try {
       final d = await PaymentService.instance.myPayments();
       if (!mounted) return;
@@ -35,16 +36,13 @@ class _PaymentPageState extends State<PaymentPage> {
         payments = d;
         loading = false;
       });
-      try {
-        final profile = await AuthService.instance.currentProfile();
-        if (!mounted) return;
+      final profile = await profileFuture;
+      if (profile != null && mounted) {
         setState(() {
           studentName = (profile['nama'] ?? studentName).toString();
           studentId = (profile['student_id'] ?? studentId).toString();
           institution = (profile['institution'] ?? institution).toString();
         });
-      } catch (e) {
-        debugPrint('PAYMENT PROFILE ERROR: $e');
       }
     } catch (e) {
       if (mounted) {
@@ -53,6 +51,15 @@ class _PaymentPageState extends State<PaymentPage> {
           loading = false;
         });
       }
+    }
+  }
+
+  Future<Map<String, dynamic>?> _loadProfile() async {
+    try {
+      return await AuthService.instance.currentProfile();
+    } catch (e) {
+      debugPrint('PAYMENT PROFILE ERROR: $e');
+      return null;
     }
   }
 
@@ -109,7 +116,7 @@ class _PaymentPageState extends State<PaymentPage> {
               _header(),
               Expanded(
                 child: loading
-                    ? const Center(
+                    ? Center(
                         child: CircularProgressIndicator(color: eloraPrimary),
                       )
                     : RefreshIndicator(
@@ -150,7 +157,7 @@ class _PaymentPageState extends State<PaymentPage> {
           onPressed: widget.onBack != null || Navigator.of(context).canPop()
               ? _handleBack
               : null,
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new_rounded,
             size: 15,
             color: eloraDark,
@@ -175,9 +182,9 @@ class _PaymentPageState extends State<PaymentPage> {
             ],
           ),
         ),
-        const Icon(Icons.download_outlined, size: 17, color: eloraDark),
+        Icon(Icons.download_outlined, size: 17, color: eloraDark),
         const SizedBox(width: 8),
-        const Icon(Icons.more_horiz_rounded, size: 18, color: eloraDark),
+        Icon(Icons.more_horiz_rounded, size: 18, color: eloraDark),
       ],
     ),
   );
@@ -192,7 +199,7 @@ class _PaymentPageState extends State<PaymentPage> {
       children: [
         Row(
           children: [
-            const Expanded(
+            Expanded(
               child: Text(
                 'STATUS AKUN SISWA',
                 style: TextStyle(
@@ -211,7 +218,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               child: Text(
                 total == 0 ? 'Lunas • Bebas Tunggakan' : 'Perlu Pembayaran',
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 7,
                   fontWeight: FontWeight.w800,
@@ -228,7 +235,7 @@ class _PaymentPageState extends State<PaymentPage> {
         const SizedBox(height: 3),
         Text(
           rp(total),
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
             fontSize: 26,
             fontWeight: FontWeight.w900,
@@ -238,7 +245,7 @@ class _PaymentPageState extends State<PaymentPage> {
           total == 0
               ? '0 tagihan tertunda bulan ini'
               : 'Masih ada tagihan tertunda',
-          style: const TextStyle(color: Colors.white70, fontSize: 7),
+          style: TextStyle(color: Colors.white70, fontSize: 7),
         ),
         const SizedBox(height: 11),
         Container(
@@ -262,7 +269,7 @@ class _PaymentPageState extends State<PaymentPage> {
     children: [
       Text(
         a,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white54,
           fontSize: 6,
           fontWeight: FontWeight.w800,
@@ -271,7 +278,7 @@ class _PaymentPageState extends State<PaymentPage> {
       const SizedBox(height: 3),
       Text(
         b,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white,
           fontSize: 8,
           fontWeight: FontWeight.w900,
@@ -282,7 +289,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget _tabs() => Container(
     padding: const EdgeInsets.all(4),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: eloraCard,
       borderRadius: BorderRadius.circular(15),
       border: Border.all(color: const Color(0xFFE6ECEA)),
     ),
@@ -315,10 +322,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   Widget _history() {
     if (error != null) {
-      return Text(
-        error!,
-        style: const TextStyle(color: Colors.red, fontSize: 9),
-      );
+      return Text(error!, style: TextStyle(color: Colors.red, fontSize: 9));
     }
     final visiblePayments = payments
         .where((payment) => selectedTab == 0 ? paid(payment) : !paid(payment))
@@ -328,7 +332,7 @@ class _PaymentPageState extends State<PaymentPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          selectedTab == 0 ? 'Kwitansi Terverifikasi' : 'Tagihan Aktif',
+          selectedTab == 0 ? 'Riwayat SPP Dibayar' : 'Tagihan Aktif',
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w900,
@@ -364,7 +368,7 @@ class _PaymentPageState extends State<PaymentPage> {
         margin: const EdgeInsets.only(bottom: 9),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: eloraCard,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: const Color(0xFFE5ECEA)),
         ),
@@ -390,7 +394,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 children: [
                   Text(
                     '${p['bill_type'] ?? 'SPP'} $period',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 9,
                       fontWeight: FontWeight.w900,
                       color: eloraDark,
@@ -410,7 +414,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           ? (p['paid_amount'] ?? p['amount'])
                           : (p['remaining_amount'] ?? p['amount']),
                     ),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w900,
                       color: eloraDark,
@@ -462,12 +466,14 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget _empty() => Container(
     padding: const EdgeInsets.all(22),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: eloraCard,
       borderRadius: BorderRadius.circular(16),
     ),
-    child: const Center(
+    child: Center(
       child: Text(
-        'Belum ada data pembayaran.',
+        selectedTab == 0
+            ? 'Belum ada pembayaran SPP yang tercatat.'
+            : 'Belum ada tagihan aktif.',
         style: TextStyle(fontSize: 9, color: Colors.grey),
       ),
     ),

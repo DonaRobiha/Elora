@@ -22,10 +22,8 @@ class EloraQuickAccessItem {
 class EloraQuickAccessGrid extends StatelessWidget {
   final List<EloraQuickAccessItem> items;
 
-  const EloraQuickAccessGrid({
-    super.key,
-    required this.items,
-  }) : assert(items.length == 5);
+  const EloraQuickAccessGrid({super.key, required this.items})
+    : assert(items.length == 5);
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +31,7 @@ class EloraQuickAccessGrid extends StatelessWidget {
       height: 292,
       child: Row(
         children: [
-          Expanded(
-            flex: 11,
-            child: _MainQuickAccessCard(item: items[0]),
-          ),
+          Expanded(flex: 11, child: _MainQuickAccessCard(item: items[0])),
 
           const SizedBox(width: 12),
 
@@ -45,12 +40,9 @@ class EloraQuickAccessGrid extends StatelessWidget {
             child: Column(
               children: [
                 for (int i = 1; i < items.length; i++) ...[
-                  Expanded(
-                    child: _SmallQuickAccessCard(item: items[i]),
-                  ),
+                  Expanded(child: _SmallQuickAccessCard(item: items[i])),
 
-                  if (i != items.length - 1)
-                    const SizedBox(height: 10),
+                  if (i != items.length - 1) const SizedBox(height: 10),
                 ],
               ],
             ),
@@ -64,19 +56,11 @@ class EloraQuickAccessGrid extends StatelessWidget {
 class _MainQuickAccessCard extends StatelessWidget {
   final EloraQuickAccessItem item;
 
-  const _MainQuickAccessCard({
-    required this.item,
-  });
+  const _MainQuickAccessCard({required this.item});
 
   @override
   Widget build(BuildContext context) {
-    const barHeights = [
-      24.0,
-      40.0,
-      30.0,
-      55.0,
-      37.0,
-    ];
+    const barHeights = [24.0, 40.0, 30.0, 55.0, 37.0];
 
     return Material(
       color: Colors.transparent,
@@ -85,15 +69,10 @@ class _MainQuickAccessCard extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFE8F6F4),
-              Color(0xFFDCEFEB),
-            ],
+            colors: [Color(0xFFE8F6F4), Color(0xFFDCEFEB)],
           ),
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: eloraPrimary.withValues(alpha: 0.08),
-          ),
+          border: Border.all(color: eloraPrimary.withValues(alpha: 0.08)),
           boxShadow: [
             BoxShadow(
               color: eloraPrimary.withValues(alpha: 0.07),
@@ -121,11 +100,7 @@ class _MainQuickAccessCard extends StatelessWidget {
                         color: Colors.white.withValues(alpha: 0.9),
                         borderRadius: BorderRadius.circular(14),
                       ),
-                      child: Icon(
-                        item.icon,
-                        color: eloraPrimary,
-                        size: 23,
-                      ),
+                      child: Icon(item.icon, color: eloraPrimary, size: 23),
                     ),
 
                     const Spacer(),
@@ -175,7 +150,7 @@ class _MainQuickAccessCard extends StatelessWidget {
                   item.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: eloraDark,
                     fontSize: 17,
                     fontWeight: FontWeight.w800,
@@ -208,9 +183,7 @@ class _MainQuickAccessCard extends StatelessWidget {
 class _SmallQuickAccessCard extends StatelessWidget {
   final EloraQuickAccessItem item;
 
-  const _SmallQuickAccessCard({
-    required this.item,
-  });
+  const _SmallQuickAccessCard({required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -220,9 +193,7 @@ class _SmallQuickAccessCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: item.backgroundColor,
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: eloraDark.withValues(alpha: 0.055),
-          ),
+          border: Border.all(color: eloraDark.withValues(alpha: 0.055)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.025),
@@ -237,10 +208,7 @@ class _SmallQuickAccessCard extends StatelessWidget {
           splashColor: item.accentColor.withValues(alpha: 0.08),
           highlightColor: item.accentColor.withValues(alpha: 0.04),
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 11,
-              vertical: 8,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 8),
             child: Row(
               children: [
                 Container(
@@ -250,11 +218,7 @@ class _SmallQuickAccessCard extends StatelessWidget {
                     color: Colors.white.withValues(alpha: 0.85),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(
-                    item.icon,
-                    size: 18,
-                    color: item.accentColor,
-                  ),
+                  child: Icon(item.icon, size: 18, color: item.accentColor),
                 ),
 
                 const SizedBox(width: 9),
@@ -268,7 +232,7 @@ class _SmallQuickAccessCard extends StatelessWidget {
                         item.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: eloraDark,
                           fontSize: 12,
                           fontWeight: FontWeight.w800,

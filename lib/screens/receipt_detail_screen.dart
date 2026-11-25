@@ -202,12 +202,9 @@ class ReceiptDetailPage extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(
-                        Icons.receipt_long_rounded,
-                        color: eloraPrimary,
-                      ),
+                      Icon(Icons.receipt_long_rounded, color: eloraPrimary),
                       const SizedBox(width: 8),
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           'Detail Kwitansi Pembayaran',
                           style: TextStyle(
@@ -219,7 +216,7 @@ class ReceiptDetailPage extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.close_rounded),
+                        icon: Icon(Icons.close_rounded),
                       ),
                     ],
                   ),
@@ -232,9 +229,9 @@ class ReceiptDetailPage extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.school_rounded, color: Colors.white),
+                        Icon(Icons.school_rounded, color: Colors.white),
                         const SizedBox(width: 9),
-                        const Expanded(
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -257,7 +254,7 @@ class ReceiptDetailPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const Text(
+                        Text(
                           '• LUNAS •',
                           style: TextStyle(
                             color: Colors.white,
@@ -292,7 +289,7 @@ class ReceiptDetailPage extends StatelessWidget {
                         const SizedBox(height: 3),
                         Text(
                           _rupiah(verifiedAmount),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 27,
                             fontWeight: FontWeight.w900,
                             color: eloraDark,
@@ -300,7 +297,7 @@ class ReceiptDetailPage extends StatelessWidget {
                         ),
                         Text(
                           '$title • $period',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 8,
                             color: eloraPrimary,
                             fontWeight: FontWeight.w700,
@@ -344,7 +341,7 @@ class ReceiptDetailPage extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: const Row(
+                    child: Row(
                       children: [
                         Icon(
                           Icons.verified_user_rounded,
@@ -371,8 +368,8 @@ class ReceiptDetailPage extends StatelessWidget {
                     height: 45,
                     child: FilledButton.icon(
                       onPressed: () => _downloadPdf(context),
-                      icon: const Icon(Icons.download_rounded),
-                      label: const Text('Unduh PDF'),
+                      icon: Icon(Icons.download_rounded),
+                      label: Text('Unduh PDF'),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -381,8 +378,8 @@ class ReceiptDetailPage extends StatelessWidget {
                     height: 45,
                     child: OutlinedButton.icon(
                       onPressed: () => _copyReceiptLink(context),
-                      icon: const Icon(Icons.share_rounded),
-                      label: const Text('Bagikan Kuitansi'),
+                      icon: Icon(Icons.share_rounded),
+                      label: Text('Bagikan Kuitansi'),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: eloraPrimary,
                         side: const BorderSide(color: eloraPrimary),
@@ -405,14 +402,14 @@ class ReceiptDetailPage extends StatelessWidget {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(fontSize: 9, color: Colors.black45),
+            style: TextStyle(fontSize: 9, color: Colors.black45),
           ),
         ),
         Expanded(
           child: Text(
             value,
             textAlign: TextAlign.right,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 9,
               fontWeight: FontWeight.w700,
               color: eloraDark,

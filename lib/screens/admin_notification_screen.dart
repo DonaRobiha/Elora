@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:elora_school/widgets/elora_components.dart';
 
@@ -13,12 +12,11 @@ class AdminNotificationPage extends StatefulWidget {
 }
 
 class _AdminNotificationPageState extends State<AdminNotificationPage> {
-
   final _titleController = TextEditingController();
-  final _bodyController  = TextEditingController();
+  final _bodyController = TextEditingController();
 
   bool _isSending = false;
-  String _target  = 'all';
+  String _target = 'all';
 
   @override
   void dispose() {
@@ -29,7 +27,7 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
 
   Future<void> _sendNotification() async {
     final title = _titleController.text.trim();
-    final body  = _bodyController.text.trim();
+    final body = _bodyController.text.trim();
 
     if (title.isEmpty || body.isEmpty) {
       _showSnack('Judul dan pesan tidak boleh kosong.');
@@ -39,7 +37,7 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Kirim Notifikasi'),
+        title: Text('Kirim Notifikasi'),
         content: Text(
           'Kirim notifikasi ke ${_target == 'all' ? 'semua siswa' : 'siswa terpilih'}?\n\n'
           'Judul: $title\nPesan: $body',
@@ -47,11 +45,11 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('Batal'),
+            child: Text('Batal'),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Kirim'),
+            child: Text('Kirim'),
           ),
         ],
       ),
@@ -62,9 +60,15 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
     setState(() => _isSending = true);
 
     try {
-      final result = await NotificationDataService.instance.send(title: title, body: body, target: _target);
+      final result = await NotificationDataService.instance.send(
+        title: title,
+        body: body,
+        target: _target,
+      );
       if (!mounted) return;
-      _showSnack(result['message']?.toString() ?? 'Notifikasi berhasil diproses.');
+      _showSnack(
+        result['message']?.toString() ?? 'Notifikasi berhasil diproses.',
+      );
       _titleController.clear();
       _bodyController.clear();
     } catch (e) {
@@ -83,7 +87,7 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Kirim Notifikasi',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -93,7 +97,6 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             EloraCard(
               width: double.infinity,
               color: eloraPrimary.withValues(alpha: 0.08),
@@ -101,10 +104,12 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
               borderRadius: BorderRadius.circular(16),
               child: Row(
                 children: [
-                  const Icon(Icons.notifications_active_outlined,
-                      color: eloraPrimary),
+                  Icon(
+                    Icons.notifications_active_outlined,
+                    color: eloraPrimary,
+                  ),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     child: Text(
                       'Notifikasi akan dikirim ke HP semua siswa '
                       'yang sudah login minimal sekali.',
@@ -118,11 +123,7 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
 
             _sectionLabel('TARGET PENERIMA'),
             const SizedBox(height: 10),
-            Row(
-              children: [
-                _targetChip('Semua Siswa', 'all'),
-              ],
-            ),
+            Row(children: [_targetChip('Semua Siswa', 'all')]),
             const SizedBox(height: 24),
 
             _sectionLabel('JUDUL NOTIFIKASI'),
@@ -131,7 +132,7 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
               controller: _titleController,
               enabled: !_isSending,
               maxLength: 100,
-              style: const TextStyle(fontSize: 13, color: eloraDark),
+              style: TextStyle(fontSize: 13, color: eloraDark),
               decoration: _inputDeco('Contoh: Pengumuman SPP Bulan November'),
             ),
             const SizedBox(height: 16),
@@ -143,9 +144,10 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
               enabled: !_isSending,
               maxLength: 300,
               maxLines: 4,
-              style: const TextStyle(fontSize: 13, color: eloraDark),
+              style: TextStyle(fontSize: 13, color: eloraDark),
               decoration: _inputDeco(
-                  'Contoh: Tagihan SPP bulan November sudah tersedia. Segera lakukan pembayaran.'),
+                'Contoh: Tagihan SPP bulan November sudah tersedia. Segera lakukan pembayaran.',
+              ),
             ),
             const SizedBox(height: 32),
 
@@ -204,8 +206,7 @@ class _AdminNotificationPageState extends State<AdminNotificationPage> {
       hintStyle: TextStyle(fontSize: 11, color: Colors.grey.shade500),
       filled: true,
       fillColor: const Color(0xFFD9D9D9),
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(11),
         borderSide: BorderSide.none,

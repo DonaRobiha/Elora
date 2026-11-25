@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -14,27 +16,32 @@ import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/admin_dashboard_screen.dart';
 import 'screens/splash_screen.dart';
-import 'screens/settings_screen.dart';
 
 String? startupError;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ==============================
-  // SUPABASE
-  // ==============================
+  await Future.wait<void>([
+    _initializeSupabase(),
+    _initializeFirebase(),
+    _loadPreferences(),
+  ]);
 
+  runApp(const EloraApp());
+
+  unawaited(_initializeNotifications());
+}
+
+Future<void> _initializeSupabase() async {
   try {
     await SupabaseConfig.initialize();
   } catch (e) {
     startupError = e.toString().replaceFirst('Bad state: ', '');
   }
+}
 
-  // ==============================
-  // FIREBASE
-  // ==============================
-
+Future<void> _initializeFirebase() async {
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -42,26 +49,23 @@ Future<void> main() async {
   } catch (e) {
     debugPrint('FIREBASE INIT ERROR: $e');
   }
+}
 
-  // ==============================
-  // NOTIFICATION
-  // ==============================
-
-  if (!kIsWeb && startupError == null) {
-    try {
-      await NotificationService.instance.init();
-    } catch (e) {
-      debugPrint('FCM INIT ERROR: $e');
-    }
-  }
-
+Future<void> _loadPreferences() async {
   final prefs = await SharedPreferences.getInstance();
   eloraThemeMode.value = (prefs.getBool('dark_mode') ?? false)
       ? ThemeMode.dark
       : ThemeMode.light;
   eloraTextScale.value = prefs.getDouble('text_scale') ?? 1.0;
+}
 
-  runApp(const EloraApp());
+Future<void> _initializeNotifications() async {
+  if (kIsWeb || startupError != null) return;
+  try {
+    await NotificationService.instance.init();
+  } catch (e) {
+    debugPrint('FCM INIT ERROR: $e');
+  }
 }
 
 class EloraApp extends StatelessWidget {
@@ -73,17 +77,20 @@ class EloraApp extends StatelessWidget {
       valueListenable: eloraTextScale,
       builder: (context, textScale, _) => ValueListenableBuilder<ThemeMode>(
         valueListenable: eloraThemeMode,
-        builder: (context, mode, _) => MediaQuery(
-          data: MediaQuery.of(context)
-              .copyWith(textScaler: TextScaler.linear(textScale)),
-          child: GetMaterialApp(
-            title: 'ELORA',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.light,
-            darkTheme: AppTheme.dark,
-            themeMode: mode,
-            home: const EloraSplashPage(),
-          ),
+        builder: (context, mode, _) => GetMaterialApp(
+          title: 'ELORA',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          themeMode: mode,
+          builder: (context, child) {
+            return MediaQuery(
+              data: MediaQuery.of(context)
+                  .copyWith(textScaler: TextScaler.linear(textScale)),
+              child: child ?? const SizedBox.shrink(),
+            );
+          },
+          home: const EloraSplashPage(),
         ),
       ),
     );
@@ -217,7 +224,7 @@ class _AuthCheckPageState extends State<AuthCheckPage> {
     // ==========================================
 
     if (isLoading) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: eloraBackground,
         body: Center(child: CircularProgressIndicator(color: eloraPrimary)),
       );
@@ -243,7 +250,7 @@ class _AuthCheckPageState extends State<AuthCheckPage> {
                     color: eloraPrimary.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(22),
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.cloud_off_rounded,
                     size: 34,
                     color: eloraPrimary,
@@ -252,7 +259,7 @@ class _AuthCheckPageState extends State<AuthCheckPage> {
 
                 const SizedBox(height: 18),
 
-                const Text(
+                Text(
                   'Something went wrong',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -289,7 +296,7 @@ class _AuthCheckPageState extends State<AuthCheckPage> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Coba Lagi',
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
@@ -298,7 +305,7 @@ class _AuthCheckPageState extends State<AuthCheckPage> {
 
                 TextButton(
                   onPressed: _returnToLogin,
-                  child: const Text(
+                  child: Text(
                     'Kembali ke Login',
                     style: TextStyle(
                       color: eloraPrimary,

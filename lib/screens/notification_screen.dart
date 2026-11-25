@@ -134,7 +134,7 @@ class _NotificationPageState extends State<NotificationPage>
             _buildHeader(context),
             Expanded(
               child: _isLoading
-                  ? const Center(
+                  ? Center(
                       child: CircularProgressIndicator(color: eloraPrimary),
                     )
                   : RefreshIndicator(
@@ -148,7 +148,8 @@ class _NotificationPageState extends State<NotificationPage>
                                 EloraEmptyState(
                                   icon: Icons.notifications_none_rounded,
                                   title: 'Belum ada notifikasi',
-                                  message: 'Notifikasi terbaru akan muncul di sini.',
+                                  message:
+                                      'Notifikasi terbaru akan muncul di sini.',
                                 ),
                               ],
                             )
@@ -182,10 +183,10 @@ class _NotificationPageState extends State<NotificationPage>
               width: 42,
               height: 42,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: eloraCard,
                 borderRadius: BorderRadius.circular(13),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_back_ios_new_rounded,
                 size: 18,
                 color: eloraDark,
@@ -193,7 +194,7 @@ class _NotificationPageState extends State<NotificationPage>
             ),
           ),
           const SizedBox(width: 14),
-          const Text(
+          Text(
             'Notifications',
             style: TextStyle(
               fontSize: 22,
@@ -241,7 +242,7 @@ class _NotificationPageState extends State<NotificationPage>
                     children: [
                       Text(
                         notification['title']?.toString() ?? '',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w700,
                           color: eloraDark,
@@ -277,7 +278,7 @@ class _NotificationPageState extends State<NotificationPage>
               child: Container(
                 width: 9,
                 height: 9,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: Colors.redAccent,
                   shape: BoxShape.circle,
                 ),

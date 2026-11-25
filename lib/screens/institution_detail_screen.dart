@@ -49,14 +49,14 @@ class InstitutionPage extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                  icon: Icon(Icons.arrow_back_ios_new_rounded),
                   style: IconButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: eloraCard,
                     foregroundColor: eloraDark,
                   ),
                 ),
                 const SizedBox(width: 10),
-                const Text(
+                Text(
                   'Detail Institusi',
                   style: TextStyle(
                     color: eloraDark,
@@ -83,7 +83,7 @@ class InstitutionPage extends StatelessWidget {
                       color: Colors.white.withValues(alpha: 0.16),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.school_outlined,
                       color: Colors.white,
                       size: 36,
@@ -93,7 +93,7 @@ class InstitutionPage extends StatelessWidget {
                   Text(
                     name,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 21,
                       fontWeight: FontWeight.w700,
@@ -103,7 +103,7 @@ class InstitutionPage extends StatelessWidget {
                   Text(
                     type,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white70, fontSize: 12),
+                    style: TextStyle(color: Colors.white70, fontSize: 12),
                   ),
                 ],
               ),
@@ -149,7 +149,7 @@ class InstitutionPage extends StatelessWidget {
                               point: position,
                               width: 60,
                               height: 60,
-                              child: const Icon(
+                              child: Icon(
                                 Icons.location_on,
                                 color: eloraPrimary,
                                 size: 44,
@@ -173,8 +173,8 @@ class InstitutionPage extends StatelessWidget {
                   width: double.infinity,
                   child: OutlinedButton.icon(
                     onPressed: () => _openGoogleMaps(context),
-                    icon: const Icon(Icons.open_in_new),
-                    label: const Text('Buka Navigasi Maps'),
+                    icon: Icon(Icons.open_in_new),
+                    label: Text('Buka Navigasi Maps'),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: eloraPrimary,
                     ),
@@ -198,7 +198,7 @@ class InstitutionPage extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: eloraDark,
               fontSize: 15,
               fontWeight: FontWeight.w700,
@@ -230,7 +230,7 @@ class InstitutionPage extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: eloraDark,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,

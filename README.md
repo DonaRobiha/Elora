@@ -23,18 +23,19 @@ Menampilkan ringkasan informasi administrasi dan aktivitas pengguna.
 - Memantau nominal tagihan.
 - Melihat jumlah pembayaran dan sisa tagihan.
 - Mengetahui status pembayaran.
+- Membuka riwayat SPP yang sudah lunas dan mengunduh kuitansi PDF.
 
 ### 3. Multi-Institution Management
 Mendukung pengelolaan beberapa institusi pendidikan dalam satu yayasan yang memiliki lokasi berbeda.
 
 ### 4. ELORA AI
-Asisten AI berbasis Google Gemini yang membantu pengguna memperoleh informasi seputar administrasi pendidikan dan menjawab pertanyaan terkait tagihan berdasarkan data akun yang sedang login.
+Asisten AI berbasis Google Gemini yang dapat menjawab pertanyaan umum dan membantu informasi ELORA. Jawaban tentang tagihan menggunakan data akun yang sedang login.
 
 ### 5. Location-Based Services (LBS)
 Memanfaatkan informasi lokasi untuk membantu pengguna mengenali dan menemukan institusi pendidikan yang berada di bawah yayasan.
 
 ### 6. Notification
-Menyediakan layanan notifikasi untuk menyampaikan informasi dan pemberitahuan kepada pengguna.
+Menyediakan notifikasi aplikasi dan push notification untuk pembaruan status pembayaran SPP, serta informasi dari admin.
 
 ### 7. Profile Management
 Menyediakan informasi profil pengguna serta pengelolaan data akun.

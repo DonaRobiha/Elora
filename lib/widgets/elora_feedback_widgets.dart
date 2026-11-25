@@ -99,7 +99,7 @@ class EloraEmptyState extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: eloraDark,
               fontWeight: FontWeight.w600,
               fontSize: 14,

@@ -105,8 +105,8 @@ class _LoginPageState extends State<LoginPage> {
       final enable = await showDialog<bool>(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Aktifkan Login Biometrik?'),
-          content: const Text(
+          title: Text('Aktifkan Login Biometrik?'),
+          content: Text(
             'Setelah logout, kamu bisa masuk kembali hanya '
             'dengan sidik jari, wajah, atau PIN perangkat. '
             'Data login disimpan terenkripsi di perangkat ini.',
@@ -114,12 +114,12 @@ class _LoginPageState extends State<LoginPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx, false),
-              child: const Text('Nanti Saja'),
+              child: Text('Nanti Saja'),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(ctx, true),
               style: FilledButton.styleFrom(backgroundColor: eloraPrimary),
-              child: const Text('Aktifkan'),
+              child: Text('Aktifkan'),
             ),
           ],
         ),
@@ -289,7 +289,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: eloraBackground,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         bottom: false,
@@ -363,14 +363,10 @@ class _LoginPageState extends State<LoginPage> {
                 borderRadius: BorderRadius.circular(18),
                 border: Border.all(color: Colors.white.withValues(alpha: 0.18)),
               ),
-              child: const Icon(
-                Icons.school_rounded,
-                color: Colors.white,
-                size: 30,
-              ),
+              child: Icon(Icons.school_rounded, color: Colors.white, size: 30),
             ),
             const SizedBox(height: 14),
-            const Text(
+            Text(
               'ELORA',
               style: TextStyle(
                 color: Colors.white,
@@ -400,7 +396,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLoginPanel() {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(color: Colors.white),
+      decoration: BoxDecoration(color: Colors.white),
       child: SafeArea(
         top: false,
         child: Padding(
@@ -408,7 +404,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Welcome back.',
                 style: TextStyle(
                   fontSize: 30,
@@ -517,8 +513,8 @@ class _LoginPageState extends State<LoginPage> {
                               color: eloraPrimary,
                             ),
                           )
-                        : const Icon(Icons.fingerprint_rounded, size: 22),
-                    label: const Text(
+                        : Icon(Icons.fingerprint_rounded, size: 22),
+                    label: Text(
                       'Masuk dengan Biometrik',
                       style: TextStyle(
                         fontSize: 13,
@@ -600,12 +596,12 @@ class _LoginPageState extends State<LoginPage> {
         controller: controller,
         keyboardType: keyboardType,
         obscureText: obscureText,
-        style: const TextStyle(fontSize: 13, color: eloraDark),
+        style: TextStyle(fontSize: 13, color: eloraDark),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(fontSize: 13, color: Colors.grey.shade400),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: eloraCard,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 21,
             vertical: 18,

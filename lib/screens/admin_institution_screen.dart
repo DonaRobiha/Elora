@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:elora_school/widgets/elora_components.dart';
 
@@ -13,7 +12,6 @@ class AdminInstitutionPage extends StatefulWidget {
 }
 
 class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
-
   List<Institution> _institutions = [];
   bool _loading = true;
   bool _saving = false;
@@ -38,17 +36,27 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
     _loadInstitutions();
   }
 
-
   Future<void> _loadInstitutions() async {
-    if (mounted) setState(() { _loading = true; _error = null; });
+    if (mounted) {
+      setState(() {
+        _loading = true;
+        _error = null;
+      });
+    }
     try {
       final rawData = await InstitutionService.instance.fetchAllForAdmin();
       final institutions = rawData.map(Institution.fromJson).toList();
       if (!mounted) return;
-      setState(() { _institutions = institutions; _loading = false; });
+      setState(() {
+        _institutions = institutions;
+        _loading = false;
+      });
     } catch (e) {
       if (!mounted) return;
-      setState(() { _loading = false; _error = _cleanError(e); });
+      setState(() {
+        _loading = false;
+        _error = _cleanError(e);
+      });
     }
   }
 
@@ -128,7 +136,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
                   onPressed: _saving
                       ? null
                       : () => Navigator.pop(dialogContext, false),
-                  child: const Text('Batal'),
+                  child: Text('Batal'),
                 ),
                 FilledButton(
                   style: FilledButton.styleFrom(backgroundColor: eloraPrimary),
@@ -172,9 +180,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
     latitudeController.dispose();
     longitudeController.dispose();
 
-    if (result == true && mounted) {
-
-    }
+    if (result == true && mounted) {}
   }
 
   Widget _formField({
@@ -239,7 +245,10 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
 
     try {
       if (isEditing) {
-        await InstitutionService.instance.update(int.parse(payload['id'].toString()), payload);
+        await InstitutionService.instance.update(
+          int.parse(payload['id'].toString()),
+          payload,
+        );
       } else {
         await InstitutionService.instance.create(payload);
       }
@@ -262,7 +271,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Nonaktifkan institusi?'),
+        title: Text('Nonaktifkan institusi?'),
         content: Text(
           'Institusi "${institution.name}" tidak akan muncul lagi '
           'di daftar institusi aktif. Data tidak dihapus permanen.',
@@ -270,12 +279,12 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Batal'),
+            child: Text('Batal'),
           ),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: Colors.red.shade700),
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Nonaktifkan'),
+            child: Text('Nonaktifkan'),
           ),
         ],
       ),
@@ -324,7 +333,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
       appBar: AppBar(
         backgroundColor: eloraPrimary,
         foregroundColor: Colors.white,
-        title: const Text(
+        title: Text(
           'Kelola Institusi',
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
@@ -332,7 +341,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
           IconButton(
             tooltip: 'Muat ulang',
             onPressed: _loading || _saving ? null : _loadInstitutions,
-            icon: const Icon(Icons.refresh),
+            icon: Icon(Icons.refresh),
           ),
         ],
       ),
@@ -340,8 +349,8 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
         onPressed: _saving ? null : () => _openForm(),
         backgroundColor: eloraPrimary,
         foregroundColor: Colors.white,
-        icon: const Icon(Icons.add),
-        label: const Text('Tambah Institusi'),
+        icon: Icon(Icons.add),
+        label: Text('Tambah Institusi'),
       ),
       body: SafeArea(
         child: Column(
@@ -363,11 +372,11 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      const Icon(Icons.apartment, color: eloraPrimary),
+                      Icon(Icons.apartment, color: eloraPrimary),
                       const SizedBox(width: 8),
                       Text(
                         '${_institutions.length} institusi aktif',
-                        style: const TextStyle(fontWeight: FontWeight.w600),
+                        style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
@@ -393,18 +402,14 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                Icons.cloud_off_outlined,
-                size: 54,
-                color: Colors.grey,
-              ),
+              Icon(Icons.cloud_off_outlined, size: 54, color: Colors.grey),
               const SizedBox(height: 12),
               Text(_error!, textAlign: TextAlign.center),
               const SizedBox(height: 16),
               FilledButton.icon(
                 onPressed: _loadInstitutions,
-                icon: const Icon(Icons.refresh),
-                label: const Text('Coba Lagi'),
+                icon: Icon(Icons.refresh),
+                label: Text('Coba Lagi'),
               ),
             ],
           ),
@@ -419,11 +424,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                Icons.apartment_outlined,
-                size: 58,
-                color: Colors.grey,
-              ),
+              Icon(Icons.apartment_outlined, size: 58, color: Colors.grey),
               const SizedBox(height: 12),
               Text(
                 _search.isEmpty
@@ -447,7 +448,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
 
           return Card(
             margin: const EdgeInsets.only(bottom: 12),
-            color: Colors.white,
+            color: eloraCard,
             elevation: 1,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
@@ -467,10 +468,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
                           color: eloraPrimary.withValues(alpha: 0.10),
                           borderRadius: BorderRadius.circular(13),
                         ),
-                        child: const Icon(
-                          Icons.school_outlined,
-                          color: eloraPrimary,
-                        ),
+                        child: Icon(Icons.school_outlined, color: eloraPrimary),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
@@ -479,7 +477,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
                           children: [
                             Text(
                               institution.name,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -525,7 +523,7 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
                     child: Text(
                       'Koordinat: ${institution.latitude}, '
                       '${institution.longitude}',
-                      style: const TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -536,8 +534,8 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
                         onPressed: _saving
                             ? null
                             : () => _openForm(institution: institution),
-                        icon: const Icon(Icons.edit_outlined, size: 18),
-                        label: const Text('Edit'),
+                        icon: Icon(Icons.edit_outlined, size: 18),
+                        label: Text('Edit'),
                       ),
                       const SizedBox(width: 4),
                       TextButton.icon(
@@ -547,8 +545,8 @@ class _AdminInstitutionPageState extends State<AdminInstitutionPage> {
                         style: TextButton.styleFrom(
                           foregroundColor: Colors.red.shade700,
                         ),
-                        icon: const Icon(Icons.block_outlined, size: 18),
-                        label: const Text('Nonaktifkan'),
+                        icon: Icon(Icons.block_outlined, size: 18),
+                        label: Text('Nonaktifkan'),
                       ),
                     ],
                   ),

@@ -138,7 +138,7 @@ class AdminDashboardPage extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.fromLTRB(20, 24, 20, 28 + bottomInset),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: eloraBackground,
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(28),
@@ -217,7 +217,7 @@ class _AdminHeader extends StatelessWidget {
             shape: BoxShape.circle,
             color: Colors.white.withValues(alpha: 0.12),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.admin_panel_settings_rounded,
             color: Colors.white,
             size: 24,
@@ -240,7 +240,7 @@ class _AdminHeader extends StatelessWidget {
                 nama,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 17,
                   fontWeight: FontWeight.w800,
@@ -257,7 +257,7 @@ class _AdminHeader extends StatelessWidget {
             foregroundColor: Colors.white,
             fixedSize: const Size(46, 46),
           ),
-          icon: const Icon(Icons.logout_rounded, size: 22),
+          icon: Icon(Icons.logout_rounded, size: 22),
         ),
       ],
     );
@@ -317,7 +317,7 @@ class _AdminHeroCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'ELORA',
                     style: TextStyle(
                       color: Colors.white,
@@ -394,8 +394,9 @@ class _AdminHeroCard extends StatelessWidget {
     bool alignEnd = false,
   }) {
     return Column(
-      crossAxisAlignment:
-          alignEnd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      crossAxisAlignment: alignEnd
+          ? CrossAxisAlignment.end
+          : CrossAxisAlignment.start,
       children: [
         Text(
           label,
@@ -411,7 +412,7 @@ class _AdminHeroCard extends StatelessWidget {
           value,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
             fontSize: 14,
             fontWeight: FontWeight.w700,
@@ -523,7 +524,7 @@ class _AdminMenuCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.w800,
                     color: eloraDark,
                     fontSize: 14,
@@ -537,7 +538,7 @@ class _AdminMenuCard extends StatelessWidget {
               ],
             ),
           ),
-          const Icon(Icons.chevron_right_rounded, color: eloraPrimary),
+          Icon(Icons.chevron_right_rounded, color: eloraPrimary),
         ],
       ),
     );
